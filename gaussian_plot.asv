@@ -1,0 +1,33 @@
+x = [-2,-1,0,1,2];
+mu = 0;
+sigma = 1;
+p = normcdf(x,mu,sigma);
+
+n=1000;
+Nbins=100;
+data = randn(n,1);
+h = histogram(data,'Normalization','pdf');
+Nbins = h.NumBins;
+edges = h.BinEdges; 
+x = zeros(1,Nbins);
+for counter=1:Nbins
+    midPointShift = abs(edges(counter)-edges(counter+1))/2;
+    x(counter) = edges(counter)+midPointShift;
+end
+hold on;
+vline(max(data),'k')
+% Optional: Label the line:
+text(max(data),0.,' <- max_value',...
+   'vert','top') % pin text to top left corner
+x = [-5:0.01:5];
+y = normpdf(x,0,1);
+plot(x,y,'LineWidth',1.5);hold off;
+figure;
+h = histogram(2*(max(data)-data)/(max(data)-min(data))-1);
+Nbins = h.NumBins;
+edges = h.BinEdges; 
+x = zeros(1,Nbins);
+for counter=1:Nbins
+    midPointShift = abs(edges(counter)-edges(counter+1))/2;
+    x(counter) = edges(counter)+midPointShift;
+end
